@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+
+    <link rel="stylesheet" href="../src/output.css" />
+  </head>
+  <body>
+    <div class="bg-bg-game bg-cover bg-center h-screen relative">
+      <div class="absolute inset-0 bg-black opacity-80"></div>
+
+      <div class="flex justify-center pt-5 relative">
+        <h1
+          class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-6xl dark:text-white"
+        >
+          Rock-Paper-Scissors
+        </h1>
+      </div>
+
+      <div class="flex justify-center relative">
+        <h2
+          class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-white md:text-5xl lg:text-6xl dark:text-white"
+          id="round"
+        >
+          Round:
+        </h2>
+      </div>
+
+      <div class="relative flex justify-between px-80">
+        <div>
+          <p
+            class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-white md:text-4xl dark:text-white"
+            id="user-score"
+          >
+            Human:
+          </p>
+        </div>
+
+        <div>
+          <p
+            class="mb-4 text-4xl font-extrabold leading-none tracking-tight text-white md:text-4xl dark:text-white"
+            id="computer-score"
+          >
+            Computer:
+          </p>
+        </div>
+      </div>
+
+      <div class="relative flex justify-between px-40">
+        <div id="human-choice">
+          <img src="../assets/user-image.png" alt="" />
+        </div>
+        <div id="computer-choice">
+          <img src="../assets/ai-image.png" alt="" />
+        </div>
+      </div>
+      <div class="relative pl-56 pt-[10rem]">
+        <button class="btn btn-outline text-3xl text-white" id="rock-btn">
+          Rock
+        </button>
+        <button class="btn btn-outline text-3xl text-white" id="paper-btn">
+          Paper
+        </button>
+        <button class="btn btn-outline text-3xl text-white" id="scissors-btn">
+          Scissors
+        </button>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <dialog id="my_modal_1" class="modal">
+      <div class="modal-box">
+        <p class="py-4 flex justify-center text-2xl font-bold" id="message"></p>
+        <div class="modal-action flex justify-center">
+          <form method="dialog">
+            <!-- if there is a button in form, it will close the modal -->
+            <button class="btn" id="continue-btn">Continue</button>
+          </form>
+        </div>
+      </div>
+    </dialog>
+
+    <!-- Modal 2 -->
+    <dialog id="my_modal_2" class="modal">
+      <div class="modal-box">
+        <p
+          class="py-4 flex justify-center text-3xl font-bold"
+          id="modal2-message"
+        ></p>
+        <div class="modal-action flex justify-center">
+          <form method="dialog">
+            <!-- if there is a button in form, it will close the modal -->
+            <button class="btn" id="modal2-btn">Restart the Game</button>
+          </form>
+        </div>
+      </div>
+    </dialog>
+
+    <!-- Modal 3 -->
+    <dialog id="my_modal_3" class="modal">
+      <div class="modal-box">
+        <p
+          class="py-4 flex justify-center text-3xl font-bold"
+          id="modal3-message"
+        ></p>
+        <div class="modal-action flex justify-center">
+          <form method="dialog">
+            <!-- if there is a button in form, it will close the modal -->
+            <button class="btn" id="modal3-btn">Continue</button>
+          </form>
+        </div>
+      </div>
+    </dialog>
+
+    <script src="rock-paper-scissors.js"></script>
+  </body>
+</html>
