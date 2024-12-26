@@ -1,17 +1,38 @@
-let humanScore = 0;
-let computerScore = 0;
-let round = 0;
-const computerChoices = document.querySelector("#computer-choice img");
-const humanChoice = document.querySelector("#human-choice img");
+class RockPaperScissors {
+  constructor() {
+    this.humanScore = 0;
+    this.computerScore = 0;
+    this.round = 0;
+    this.computerChoices = document.querySelector("#computer-choice img");
+    this.humanChoice = document.querySelector("#human-choice img");
+    this.initEventListeners();
+  }
 
-const continueButton = document
-  .querySelector("#continue-btn")
-  .addEventListener("click", () => {
-    console.log(round, humanScore, computerScore);
+  initEventListeners() {
+    document
+      .querySelector("#continue-btn")
+      .addEventListener("click", () => this.continueGame());
+    document
+      .querySelector("#modal2-btn")
+      .addEventListener("click", () => this.restartGame());
+    document
+      .querySelector("#modal3-btn")
+      .addEventListener("click", () => this.playGame(6));
+    document
+      .querySelector("#rock-btn")
+      .addEventListener("click", () => this.makeChoice("rock"));
+    document
+      .querySelector("#paper-btn")
+      .addEventListener("click", () => this.makeChoice("paper"));
+    document
+      .querySelector("#scissors-btn")
+      .addEventListener("click", () => this.makeChoice("scissors"));
+  }
 
+  continueGame() {
     if (
-      (round == 5 && humanScore > computerScore) ||
-      (round == 6 && humanScore > computerScore)
+      (this.round == 5 && this.humanScore > this.computerScore) ||
+      (this.round == 6 && this.humanScore > this.computerScore)
     ) {
       document.querySelector("#modal2-message").textContent =
         "Game Over! You Win!";
@@ -21,20 +42,19 @@ const continueButton = document
     }
 
     if (
-      (round == 5 && humanScore < computerScore) ||
-      (round == 6 && humanScore < computerScore)
+      (this.round == 5 && this.humanScore < this.computerScore) ||
+      (this.round == 6 && this.humanScore < this.computerScore)
     ) {
       document.querySelector("#modal2-message").textContent =
         "Game Over! Computer Wins!";
       my_modal_1.close();
       my_modal_2.showModal();
-
       return;
     }
 
     if (
-      (humanScore == computerScore && round == 5) ||
-      (round == 6 && humanScore == computerScore)
+      (this.humanScore == this.computerScore && this.round == 5) ||
+      (this.round == 6 && this.humanScore == this.computerScore)
     ) {
       document.querySelector("#modal3-message").textContent =
         "It's a tie! We're going to sudden death!";
@@ -42,162 +62,157 @@ const continueButton = document
       my_modal_3.showModal();
       return;
     }
-  });
+  }
 
-const restartGameButton = document
-  .querySelector("#modal2-btn")
-  .addEventListener("click", () => {
-    humanScore = 0;
-    computerScore = 0;
-    round = 0;
-    document.querySelector("#user-score").textContent = "Human: " + humanScore;
+  restartGame() {
+    this.humanScore = "";
+    this.computerScore = "";
+    this.round = "";
+    document.querySelector("#user-score").textContent =
+      "Human: " + this.humanScore;
     document.querySelector("#computer-score").textContent =
-      "Computer: " + computerScore;
-    document.querySelector("#round").textContent = "Round: " + round;
+      "Computer: " + this.computerScore;
+    document.querySelector("#round").textContent = "Round: " + this.round;
     my_modal_2.close();
-  });
-
-const suddenDeathButton = document
-  .querySelector("#modal3-btn")
-  .addEventListener("click", () => {
-    playGame(6);
-  });
-
-function getComputerChoice() {
-  const randomNumber = Math.floor(Math.random() * 3);
-  switch (randomNumber) {
-    case 0:
-      return (computerChoices.src = "../assets/rock-computer.png");
-    case 1:
-      return (computerChoices.src = "../assets/paper-computer.png");
-    case 2:
-      return (computerChoices.src = "../assets/scissors-computer.png");
-  }
-}
-
-function playRound() {
-  if (
-    humanChoice.src.endsWith("rock-human.png") &&
-    computerChoices.src.endsWith("rock-computer.png")
-  ) {
-    return "It's a tie!";
   }
 
-  if (
-    humanChoice.src.endsWith("rock-human.png") &&
-    computerChoices.src.endsWith("paper-computer.png")
-  ) {
-    return "Paper Covers Rock! Computer Wins!";
+  getComputerChoice() {
+    const randomNumber = Math.floor(Math.random() * 3);
+    switch (randomNumber) {
+      case 0:
+        return (this.computerChoices.src = "../assets/rock-computer.png");
+      case 1:
+        return (this.computerChoices.src = "../assets/paper-computer.png");
+      case 2:
+        return (this.computerChoices.src = "../assets/scissors-computer.png");
+    }
   }
 
-  if (
-    humanChoice.src.endsWith("rock-human.png") &&
-    computerChoices.src.endsWith("scissors-computer.png")
-  ) {
-    return "Rock Crushes Scissors! You Win!";
+  playRound() {
+    if (
+      this.humanChoice.src.endsWith("rock-human.png") &&
+      this.computerChoices.src.endsWith("rock-computer.png")
+    ) {
+      return "It's a tie!";
+    }
+    if (
+      this.humanChoice.src.endsWith("rock-human.png") &&
+      this.computerChoices.src.endsWith("paper-computer.png")
+    ) {
+      return "Paper Covers Rock! Computer Wins!";
+    }
+    if (
+      this.humanChoice.src.endsWith("rock-human.png") &&
+      this.computerChoices.src.endsWith("scissors-computer.png")
+    ) {
+      return "Rock Crushes Scissors! You Win!";
+    }
+    if (
+      this.humanChoice.src.endsWith("paper-human.png") &&
+      this.computerChoices.src.endsWith("rock-computer.png")
+    ) {
+      return "Paper Covers Rock! You Win!";
+    }
+    if (
+      this.humanChoice.src.endsWith("paper-human.png") &&
+      this.computerChoices.src.endsWith("paper-computer.png")
+    ) {
+      return "It's a tie!";
+    }
+    if (
+      this.humanChoice.src.endsWith("paper-human.png") &&
+      this.computerChoices.src.endsWith("scissors-computer.png")
+    ) {
+      return "Scissors Cuts Paper! Computer Wins!";
+    }
+    if (
+      this.humanChoice.src.endsWith("scissors-human.png") &&
+      this.computerChoices.src.endsWith("rock-computer.png")
+    ) {
+      return "Rock Crushes Scissors! Computer Wins!";
+    }
+    if (
+      this.humanChoice.src.endsWith("scissors-human.png") &&
+      this.computerChoices.src.endsWith("paper-computer.png")
+    ) {
+      return "Scissors Cuts Paper! You Win!";
+    }
+    if (
+      this.humanChoice.src.endsWith("scissors-human.png") &&
+      this.computerChoices.src.endsWith("scissors-computer.png")
+    ) {
+      return "It's a tie!";
+    }
   }
 
-  if (
-    humanChoice.src.endsWith("paper-human.png") &&
-    computerChoices.src.endsWith("rock-computer.png")
-  ) {
-    return "Paper Covers Rock! You Win!";
+  updateScoreAndRound() {
+    if (this.playRound().includes("You Win!")) {
+      this.humanScore++;
+    } else if (this.playRound().includes("Computer Wins!")) {
+      this.computerScore++;
+    }
+    return {
+      computerScore: this.computerScore,
+      humanScore: this.humanScore,
+      round: this.round,
+    };
   }
 
-  if (
-    humanChoice.src.endsWith("paper-human.png") &&
-    computerChoices.src.endsWith("paper-computer.png")
-  ) {
-    return "It's a tie!";
-  }
-
-  if (
-    humanChoice.src.endsWith("paper-human.png") &&
-    computerChoices.src.endsWith("scissors-computer.png")
-  ) {
-    return "Scissors Cuts Paper! Computer Wins!";
-  }
-
-  if (
-    humanChoice.src.endsWith("scissors-human.png") &&
-    computerChoices.src.endsWith("rock-computer.png")
-  ) {
-    return "Rock Crushes Scissors! Computer Wins!";
-  }
-
-  if (
-    humanChoice.src.endsWith("scissors-human.png") &&
-    computerChoices.src.endsWith("paper-computer.png")
-  ) {
-    return "Scissors Cuts Paper! You Win!";
-  }
-
-  if (
-    humanChoice.src.endsWith("scissors-human.png") &&
-    computerChoices.src.endsWith("scissors-computer.png")
-  ) {
-    return "It's a tie!";
-  }
-}
-
-function updateScoreAndRound() {
-  if (playRound().includes("You Win!")) {
-    humanScore++;
-  } else if (playRound().includes("Computer Wins!")) {
-    computerScore++;
-  }
-
-  return { computerScore, humanScore, round };
-}
-
-function playGame(num) {
-  document.querySelector("#rock-btn").addEventListener("click", () => {
-    if (round >= num) {
+  makeChoice(choice) {
+    if (this.round >= 5) {
       return;
     }
-    round++;
-    humanChoice.src = "../assets/rock-human.png";
-    getComputerChoice();
-    document.querySelector("#message").textContent = playRound();
-    updateScoreAndRound();
-    document.querySelector("#user-score").textContent = "Human: " + humanScore;
+    this.round++;
+    this.humanChoice.src = `../assets/${choice}-human.png`;
+    this.getComputerChoice();
+    document.querySelector("#message").textContent = this.playRound();
+    this.updateScoreAndRound();
+    document.querySelector("#user-score").textContent =
+      "Human: " + this.humanScore;
     document.querySelector("#computer-score").textContent =
-      "Computer: " + computerScore;
-    document.querySelector("#round").textContent = "Round: " + round;
+      "Computer: " + this.computerScore;
+    document.querySelector("#round").textContent = "Round: " + this.round;
     my_modal_1.showModal();
-  });
+  }
 
-  document.querySelector("#paper-btn").addEventListener("click", () => {
-    if (round >= num) {
-      return;
-    }
-    round++;
-    humanChoice.src = "../assets/paper-human.png";
-    getComputerChoice();
-    document.querySelector("#message").textContent = playRound();
-    updateScoreAndRound();
-    document.querySelector("#user-score").textContent = "Human: " + humanScore;
+  playGame(num) {
+    this.round = "";
+    this.humanScore = "";
+    this.computerScore = "";
+    document.querySelector("#user-score").textContent =
+      "Human: " + this.humanScore;
     document.querySelector("#computer-score").textContent =
-      "Computer: " + computerScore;
-    document.querySelector("#round").textContent = "Round: " + round;
-    my_modal_1.showModal();
-  });
+      "Computer: " + this.computerScore;
+    document.querySelector("#round").textContent = "Round: " + this.round;
+  }
 
-  document.querySelector("#scissors-btn").addEventListener("click", () => {
-    if (round >= num) {
-      return;
+  suddenDeath() {
+    if (this.humanScore === this.computerScore) {
+      document.querySelector("#modal3-message").textContent =
+        "It's a tie! We're going to sudden death!";
+      my_modal_1.close();
+      my_modal_3.showModal();
+      this.round++;
+      this.makeChoice(this.humanChoice.src.split("-")[0].split("/").pop());
+      this.determineWinner();
+    } else {
+      this.determineWinner();
     }
-    round++;
-    humanChoice.src = "../assets/scissors-human.png";
-    getComputerChoice();
-    document.querySelector("#message").textContent = playRound();
-    updateScoreAndRound();
-    document.querySelector("#user-score").textContent = "Human: " + humanScore;
-    document.querySelector("#computer-score").textContent =
-      "Computer: " + computerScore;
-    document.querySelector("#round").textContent = "Round: " + round;
-    my_modal_1.showModal();
-  });
+    this.restartGame();
+  }
+
+  determineWinner() {
+    if (this.humanScore > this.computerScore) {
+      document.querySelector("#modal2-message").textContent =
+        "Game Over! You Win!";
+    } else {
+      document.querySelector("#modal2-message").textContent =
+        "Game Over! Computer Wins!";
+    }
+    my_modal_1.close();
+    my_modal_2.showModal();
+  }
 }
 
-playGame(5);
+const game = new RockPaperScissors();
+game.playGame(5);
